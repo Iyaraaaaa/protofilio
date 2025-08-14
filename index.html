@@ -291,7 +291,7 @@
             gap: 8px;
         }
 
-        /* Colorful Skill Tag Icons - Removed Orange Colors */
+        /* Colorful Skill Tag Icons */
         .skill-tag .fa-cuttlefish { color: #6cc644; }
         .skill-tag .fa-python { color: #3776ab; }
         .skill-tag .fa-java { color: #007396; }
@@ -323,29 +323,49 @@
 
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .project-card {
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 500px;
+        }
+
+        .project-image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            cursor: pointer;
         }
 
         .project-image {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 15px 15px 0 0;
+            transition: all 0.4s ease;
+            filter: brightness(0.9);
+        }
+
+        .project-image:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1);
         }
 
         .project-content {
             padding: 2rem;
+            height: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .project-card::before {
@@ -354,22 +374,38 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(45deg, #00d4ff, #7b68ee, #ff6ec7);
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.3);
         }
 
         .project-card h3 {
             color: #00d4ff;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            font-weight: bold;
+            color: #ff6ec7;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-details {
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
 
         /* Colorful Project Icons */
@@ -380,29 +416,30 @@
         .project-card h3 .fa-landmark { color: #3c6382; }
 
         .project-links {
-            margin-top: 1rem;
+            margin-top: auto;
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .project-link {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 0.5rem 1rem;
+            gap: 8px;
+            padding: 0.7rem 1.2rem;
             background: linear-gradient(45deg, rgba(0, 212, 255, 0.2), rgba(123, 104, 238, 0.2));
             color: #00d4ff;
             text-decoration: none;
-            border-radius: 20px;
+            border-radius: 25px;
             border: 1px solid rgba(0, 212, 255, 0.3);
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .project-link:hover {
             background: linear-gradient(45deg, rgba(0, 212, 255, 0.4), rgba(123, 104, 238, 0.4));
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
         }
 
         /* Colorful Project Link Icons */
@@ -417,7 +454,51 @@
 
         .readme-link:hover {
             background: linear-gradient(45deg, rgba(66, 133, 244, 0.4), rgba(123, 104, 238, 0.4));
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3);
+        }
+
+        /* Image Modal for Full View */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #00d4ff;
         }
 
         /* Main README Button at Bottom */
@@ -624,7 +705,19 @@
                 transform: translateX(50%);
                 flex-direction: row;
             }
-            .projects { grid-template-columns: 1fr; }
+            .projects { 
+                grid-template-columns: 1fr;
+            }
+            .project-card {
+                min-height: 450px;
+            }
+            .project-image-container {
+                height: 220px;
+            }
+            .project-links {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
 
         /* Loading Animation */
@@ -712,6 +805,14 @@
             <i class="fas fa-download"></i>
             <span class="toolbar-tooltip">Download CV</span>
         </a>
+    </div>
+
+    <!-- Image Modal for Full View -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img class="modal-image" id="modalImg">
+        </div>
     </div>
 
     <div class="content">
@@ -807,12 +908,15 @@
             <h2>🧩 Featured Projects</h2>
             <div class="projects">
                 <div class="project-card">
-                    <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/medicare.jpg" alt="Medicare App" class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/medicare.jpg" alt="Medicare App" class="project-image" onclick="openModal(this.src)">
+                    </div>
                     <div class="project-content">
                         <h3><i class="fas fa-hospital"></i> Medicare</h3>
-                        <p><strong>Health management app for doctors & patients</strong></p>
-                        <p><strong>Tech Used:</strong> MERN Stack, Firebase, Tailwind</p>
-                        <p>Patient management, appointment scheduling, medical records with clean UI/UX</p>
+                        <div class="project-description">
+                            <p class="project-tech">Tech Used: MERN Stack, Firebase, Tailwind</p>
+                            <p class="project-details">Health management app for doctors & patients featuring patient management, appointment scheduling, and medical records with clean UI/UX design.</p>
+                        </div>
                         <div class="project-links">
                             <a href="https://github.com/Iyaraaaaa/Medicare" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Repository
@@ -825,12 +929,15 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/driving.png" alt="Solid Driving School" class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/driving.png" alt="Solid Driving School" class="project-image" onclick="openModal(this.src)">
+                    </div>
                     <div class="project-content">
                         <h3><i class="fas fa-car"></i> Solid Driving School</h3>
-                        <p><strong>Booking system for driving schools</strong></p>
-                        <p><strong>Tech Used:</strong> React, MongoDB, Bootstrap</p>
-                        <p>Online booking, instructor management, progress tracking</p>
+                        <div class="project-description">
+                            <p class="project-tech">Tech Used: React, MongoDB, Bootstrap</p>
+                            <p class="project-details">Complete booking system for driving schools with online booking, instructor management, and progress tracking features.</p>
+                        </div>
                         <div class="project-links">
                             <a href="https://github.com/Iyaraaaaa/Solid_Driving_School" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Repository
@@ -843,12 +950,15 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/health.jpg" alt="Health App" class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/health.jpg" alt="Health App" class="project-image" onclick="openModal(this.src)">
+                    </div>
                     <div class="project-content">
                         <h3><i class="fas fa-heartbeat"></i> Health App</h3>
-                        <p><strong>Comprehensive health monitoring platform</strong></p>
-                        <p><strong>Tech Used:</strong> React, Express, MongoDB</p>
-                        <p>Health tracking, appointment booking, medical records management</p>
+                        <div class="project-description">
+                            <p class="project-tech">Tech Used: React, Express, MongoDB</p>
+                            <p class="project-details">Comprehensive health monitoring platform with health tracking, appointment booking, and medical records management.</p>
+                        </div>
                         <div class="project-links">
                             <a href="https://github.com/Iyaraaaaa/Health-App" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Repository
@@ -861,12 +971,15 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/todo.jpg" alt="ToDo App" class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/todo.jpg" alt="ToDo App" class="project-image" onclick="openModal(this.src)">
+                    </div>
                     <div class="project-content">
                         <h3><i class="fas fa-tasks"></i> TaskFlow</h3>
-                        <p><strong>Organize your life, one task at a time</strong></p>
-                        <p><strong>Tech Used:</strong> React, JavaScript, Local Storage</p>
-                        <p>Beautiful task management with priority levels, categories, and progress tracking</p>
+                        <div class="project-description">
+                            <p class="project-tech">Tech Used: React, JavaScript, Local Storage</p>
+                            <p class="project-details">Beautiful task management application with priority levels, categories, and progress tracking to organize your life efficiently.</p>
+                        </div>
                         <div class="project-links">
                             <a href="https://github.com/Iyaraaaaa/ToDo-App" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Repository
@@ -879,12 +992,15 @@
                 </div>
 
                 <div class="project-card">
-                    <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/ministry-health.jpg" alt="Ministry of Health Sri Lanka" class="project-image">
+                    <div class="project-image-container">
+                        <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/ministry-health.jpg" alt="Ministry of Health Sri Lanka" class="project-image" onclick="openModal(this.src)">
+                    </div>
                     <div class="project-content">
                         <h3><i class="fas fa-landmark"></i> Ministry of Health Portal</h3>
-                        <p><strong>Government health information system</strong></p>
-                        <p><strong>Tech Used:</strong> HTML, CSS, JavaScript, PHP</p>
-                        <p>Official portal with health services, news updates, and citizen resources</p>
+                        <div class="project-description">
+                            <p class="project-tech">Tech Used: HTML, CSS, JavaScript, PHP</p>
+                            <p class="project-details">Official government health information system with health services, news updates, and citizen resources portal.</p>
+                        </div>
                         <div class="project-links">
                             <a href="https://github.com/Iyaraaaaa/Ministry-Health-Portal" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Repository
@@ -960,6 +1076,33 @@
                     document.getElementById('loadingScreen').style.display = 'none';
                 }, 1000);
             }, 1500);
+        });
+
+        // Image Modal Functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal when clicking on close button or outside the image
+        document.querySelector('.close-modal').onclick = closeModal;
+        document.getElementById('imageModal').onclick = function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        };
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
         });
 
         // Three.js scene setup
