@@ -376,7 +376,8 @@
         .project-card h3 .fa-hospital { color: #ff4757; }
         .project-card h3 .fa-car { color: #ffa502; }
         .project-card h3 .fa-heartbeat { color: #ff3838; }
-        .project-card h3 .fa-mobile-alt { color: #5352ed; }
+        .project-card h3 .fa-tasks { color: #5352ed; }
+        .project-card h3 .fa-landmark { color: #3c6382; }
 
         .project-links {
             margin-top: 1rem;
@@ -654,6 +655,26 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 1;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) translateY(-10px);
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -842,15 +863,33 @@
                 <div class="project-card">
                     <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/todo.jpg" alt="ToDo App" class="project-image">
                     <div class="project-content">
-                        <h3><i class="fas fa-mobile-alt"></i> ToDo App</h3>
-                        <p><strong>Mobile task management application</strong></p>
-                        <p><strong>Tech Used:</strong> React Native, JavaScript, SQLite</p>
-                        <p>Task creation, priority management, offline support, beautiful UI</p>
+                        <h3><i class="fas fa-tasks"></i> TaskFlow</h3>
+                        <p><strong>Organize your life, one task at a time</strong></p>
+                        <p><strong>Tech Used:</strong> React, JavaScript, Local Storage</p>
+                        <p>Beautiful task management with priority levels, categories, and progress tracking</p>
                         <div class="project-links">
                             <a href="https://github.com/Iyaraaaaa/ToDo-App" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i> Repository
                             </a>
                             <a href="https://github.com/Iyaraaaaa/ToDo-App#readme" class="project-link readme-link" target="_blank">
+                                <i class="fas fa-book-open"></i> README
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://github.com/Iyaraaaaa/Iyaraaaaa/raw/main/ministry-health.jpg" alt="Ministry of Health Sri Lanka" class="project-image">
+                    <div class="project-content">
+                        <h3><i class="fas fa-landmark"></i> Ministry of Health Portal</h3>
+                        <p><strong>Government health information system</strong></p>
+                        <p><strong>Tech Used:</strong> HTML, CSS, JavaScript, PHP</p>
+                        <p>Official portal with health services, news updates, and citizen resources</p>
+                        <div class="project-links">
+                            <a href="https://github.com/Iyaraaaaa/Ministry-Health-Portal" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i> Repository
+                            </a>
+                            <a href="https://github.com/Iyaraaaaa/Ministry-Health-Portal#readme" class="project-link readme-link" target="_blank">
                                 <i class="fas fa-book-open"></i> README
                             </a>
                         </div>
@@ -1124,16 +1163,6 @@
         // Start typing animation after page load
         setTimeout(typeWriter, 2000);
 
-        // Add CSS for blinking cursor
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes blink {
-                0%, 50% { opacity: 1; }
-                51%, 100% { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
         // Parallax effect for floating elements
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset;
@@ -1178,26 +1207,6 @@
                 }, 1000);
             }
         }
-
-        // Add sparkle animation
-        const sparkleStyle = document.createElement('style');
-        sparkleStyle.textContent = `
-            @keyframes sparkle {
-                0% {
-                    opacity: 1;
-                    transform: scale(0);
-                }
-                50% {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-                100% {
-                    opacity: 0;
-                    transform: scale(0) translateY(-10px);
-                }
-            }
-        `;
-        document.head.appendChild(sparkleStyle);
     </script>
 </body>
 </html>
